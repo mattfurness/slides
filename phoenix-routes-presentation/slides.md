@@ -43,7 +43,7 @@ Telling the phoenix framework what code to run for a combination of the *URL pat
 ---
 # Listing routes
 
-Run the following from the top level of your project
+Run the following from the root of you project:
 
 ```sh
 mix phx.routes        # 1.3+
