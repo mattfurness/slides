@@ -1,34 +1,34 @@
 theme: Simple,6
 
-# Routing with Phoenix:
+# Phoenix Routing:
 
 ## A High Level Introduction
 
 ---
-# The anatomy of a URL
+# The parts of a URL
 
 ### `https://twitter.com/ElixirGirls`
 
 ---
-# The anatomy of a URL
+# The parts of a URL
 
-### The protocol: `https://`
-
----
-# The anatomy of a URL
-
-### The host: `twitter.com`
+### **The protocol**: `https://`
 
 ---
-# The anatomy of a URL
+# The parts of a URL
 
-### The path: `/ElixirGirls`
+### **The host**: `twitter.com`
+
+---
+# The parts of a URL
+
+### **The path**: `/ElixirGirls`
 
 ---
 # HTTP methods (or verbs)
 
 - `GET` - Eg, when you type a URL in to the browser and hit enter
-- `POST` - Eg, whenyou are submitting a form
+- `POST` - Eg, when you are submitting a form
 - `PATCH`
 - `PUT`
 - `DELETE`
@@ -38,12 +38,12 @@ theme: Simple,6
 ---
 # What is routing in Phoenix
 
-Telling the phoenix framework what code to run for a combination of the *URL path* and the *HTTP method/verb*
+Telling the phoenix framework (in `router.ex`) what code to run for a combination of a *URL path* and the *HTTP method/verb*.
 
 ---
 # Listing routes
 
-Run the following from the root of you project:
+Run the following from the root of your project
 
 ```sh
 mix phx.routes        # 1.3+
@@ -80,8 +80,6 @@ In other words:
 
 ---
 # Declaring resources
-
-Declaring resources:
 
 `resources "/posts", PostController`
 
@@ -127,9 +125,29 @@ end
 
 Declaring routes will create path helpers behind the scenes:
 
-The route `get "/posts/:id", PostController, :show` will have a path helper function called `post_path`. This can be used to generate a path for the route, for example `post_path(conn, :show, post)`.
+The route
+
+`get "/posts/:id", PostController, :show`
+
+will have a path helper function called `post_path`. This can be used to generate a path for the route, for example `post_path(conn, :show, post)`.
 
 *Note*: Listing routes via `mix` will include the path helper name.
+
+---
+# Scopes
+
+Scopes are a way to group routes under a common path prefix, for example `"/"` or `"/api"`
+
+```elixir
+scope "/", BlogElixirGirlsWeb do
+  pipe_through :browser # Use the default browser stack
+
+  get "/", PageController, :index
+  resources "/posts", PostController do
+    post "/comment", PostController, :add_comment
+  end
+end
+```
 
 ---
 # Channel and routing
@@ -141,6 +159,7 @@ Channels work differently and so are not routed in the same way. Declaring a `ch
 ---
 # Resources
 
-- [HTTP Verbs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+- [HTTP methods / verbs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 - [Routing cheat sheet](https://devhints.io/phoenix-routing)
-- [Me on Twitter](https://twitter.com/mattfurness)
+- [Phoenix routing guide](https://hexdocs.pm/phoenix/routing.html#content)
+- [@matt_furness on Twitter](https://twitter.com/matt_furness)
